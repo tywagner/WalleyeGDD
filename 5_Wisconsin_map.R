@@ -37,7 +37,7 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 
 
 res <- 6
-name_figure <- "WI_map.jpg"
+name_figure <- "WI_map.png"
 jpeg(filename = name_figure, height = 500*res, width = 500*res, res=72*res)
 def.par <- par(no.readonly = TRUE)
 
