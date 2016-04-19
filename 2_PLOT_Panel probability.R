@@ -91,6 +91,16 @@ for(i in 1:J){
   lowerCI.Group[,,i] <- apply(probPredGroup[,,i], 2, quantile, probs=c(0.05) )
 }
 
+# Save objects for plotting
+saveRDS(meanProbGroup, file="meanProbGroup.rds")
+saveRDS(upperCI.Group, file="upperCI.Group.rds")
+saveRDS(lowerCI.Group, file="lowerCI.Group")
+
+## Color for panel plots
+sigColorP <- rep('lightgray',num)
+sigColorP[sigBetas80==1] <- 'indianred1'
+sigColorP[sigBetas == 1] <- 'lightblue'
+
 
 ################# PLOT ############################
 res <- 6
@@ -103,7 +113,7 @@ size.text = 1
 axissize <- 0.8
 x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
 # x.label = 'Standardized temperature'
-y.label = 'Probability of successful recruitment'
+y.label = 'Probability of successful walleye recruitment'
 
 
 nf <- layout(matrix(c(1:100),nrow=10,ncol=10,byrow=TRUE),  TRUE) 
@@ -141,7 +151,7 @@ for(i in 1:100){
   i.back <- order(X3, decreasing = TRUE )
   x.polygon <- c( X3[i.for] , X3[i.back] )
   y.polygon <- c( lowerCI.Group[,,i][i.for] , upperCI.Group[,,i][i.back] )
-  polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
+  polygon( x.polygon , y.polygon , col = sigColorP[i], border = NA )
   
   # Add posterior means
   lines(X3, meanProbGroup[,,i],lwd=1, col='black',lty=1)
@@ -152,25 +162,7 @@ for(i in 1:100){
   
 }
 
-# Poplulation-average plot
 
-# plot(x,Y,  axes=F,ylim=c(Ymin,Ymax),xlim=c(min(x), max(x)), ylab='', xlab='', type='n')
-# 
-# axis(side=1,cex.axis=axissize , mgp=c(1,0,0),tck= -0.01)
-# axis(side=2,cex.axis=axissize , mgp=c(1,0,0),tck= -0.01, las=1, labels=F)
-# 
-# 
-# i.for <- order(X3)
-# i.back <- order(X3, decreasing = TRUE )
-# x.polygon <- c( X3[i.for] , X3[i.back] )
-# y.polygon <- c( lowerCIA.PopAve[i.for] , upperCI.PopAve[i.back] )
-# polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
-# 
-# lines(X3,meanProbPopAve, lwd = 1, col="black", lty = 1)
-# 
-# text(0.2, 0.9, "All data", cex=0.8)
-# text(0.6,0.9,'(7021)',cex=0.8)
-# 
 mtext(y.label, line = 1.5, side = 2, cex = size.text,outer=T)
 mtext(x.label, line = 1.5, side = 1, cex = size.text, outer=T)
 # 
@@ -193,7 +185,7 @@ size.text = 1
 axissize <- 0.8
 x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
 # x.label = 'Standardized temperature'
-y.label = 'Probability of successful recruitment'
+y.label = 'Probability of successful walleye recruitment'
 
 
 nf <- layout(matrix(c(1:100),nrow=10,ncol=10,byrow=TRUE),  TRUE) 
@@ -231,7 +223,7 @@ for(i in c(101:200) ){
   i.back <- order(X3, decreasing = TRUE )
   x.polygon <- c( X3[i.for] , X3[i.back] )
   y.polygon <- c( lowerCI.Group[,,i][i.for] , upperCI.Group[,,i][i.back] )
-  polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
+  polygon( x.polygon , y.polygon , col = sigColorP[i] , border = NA )
   
   # Add posterior means
   lines(X3, meanProbGroup[,,i],lwd=1, col='black',lty=1)
@@ -242,25 +234,7 @@ for(i in c(101:200) ){
   
 }
 
-# Poplulation-average plot
 
-# plot(x,Y,  axes=F,ylim=c(Ymin,Ymax),xlim=c(min(x), max(x)), ylab='', xlab='', type='n')
-# 
-# axis(side=1,cex.axis=axissize , mgp=c(1,0,0),tck= -0.01)
-# axis(side=2,cex.axis=axissize , mgp=c(1,0,0),tck= -0.01, las=1, labels=F)
-# 
-# 
-# i.for <- order(X3)
-# i.back <- order(X3, decreasing = TRUE )
-# x.polygon <- c( X3[i.for] , X3[i.back] )
-# y.polygon <- c( lowerCIA.PopAve[i.for] , upperCI.PopAve[i.back] )
-# polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
-# 
-# lines(X3,meanProbPopAve, lwd = 1, col="black", lty = 1)
-# 
-# text(0.2, 0.9, "All data", cex=0.8)
-# text(0.6,0.9,'(7021)',cex=0.8)
-# 
 mtext(y.label, line = 1.5, side = 2, cex = size.text,outer=T)
 mtext(x.label, line = 1.5, side = 1, cex = size.text, outer=T)
 # 
@@ -283,7 +257,7 @@ size.text = 1
 axissize <- 0.8
 x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
 # x.label = 'Standardized temperature'
-y.label = 'Probability of successful recruitment'
+y.label = 'Probability of successful walleye recruitment'
 
 
 nf <- layout(matrix(c(1:100),nrow=10,ncol=10,byrow=TRUE),  TRUE) 
@@ -321,7 +295,7 @@ for(i in c(201:300) ){
   i.back <- order(X3, decreasing = TRUE )
   x.polygon <- c( X3[i.for] , X3[i.back] )
   y.polygon <- c( lowerCI.Group[,,i][i.for] , upperCI.Group[,,i][i.back] )
-  polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
+  polygon( x.polygon , y.polygon , col = sigColorP[i] , border = NA )
   
   # Add posterior means
   lines(X3, meanProbGroup[,,i],lwd=1, col='black',lty=1)
@@ -372,7 +346,7 @@ size.text = 1
 axissize <- 0.8
 x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
 # x.label = 'Standardized temperature'
-y.label = 'Probability of successful recruitment'
+y.label = 'Probability of successful walleye recruitment'
 
 
 nf <- layout(matrix(c(1:100),nrow=10,ncol=10,byrow=TRUE),  TRUE) 
@@ -410,7 +384,7 @@ for(i in c(301:364) ){
   i.back <- order(X3, decreasing = TRUE )
   x.polygon <- c( X3[i.for] , X3[i.back] )
   y.polygon <- c( lowerCI.Group[,,i][i.for] , upperCI.Group[,,i][i.back] )
-  polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
+  polygon( x.polygon , y.polygon , col = sigColorP[i] , border = NA )
   
   # Add posterior means
   lines(X3, meanProbGroup[,,i],lwd=1, col='black',lty=1)
@@ -430,4 +404,4 @@ mtext(x.label, line = -12.5, side = 1, cex = size.text, outer=T)
 par(def.par)
 dev.off()
 
-rm(linPredPopAve, probPredPopAve, linPredGroup, meanProbGroup)
+# rm(linPredPopAve, probPredPopAve, linPredGroup, probPredGroup)
