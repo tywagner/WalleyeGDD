@@ -4,7 +4,8 @@ library(lme4)
 library(MCMCpack)
 library(arm)
 library(lattice)
-
+library(PerformanceAnalytics)
+library(MuMIn)
 
 # Read in summary data 
 summary <- read.csv('summary_walleye_recruitment.csv')
@@ -167,6 +168,23 @@ data <- list(y = dat$y, group = dat$lakenum, n = dim(dat)[1], J = J,
              x=dat$x, K=K, W=W, z1 = area, z2=cond, z3=bass, z4=gdd2 )
 
 
+# Get data in form for lmer
+dat$cond <- cond[dat$lakenum]
+dat$area <- area[dat$lakenum]
+dat$bass <- bass[dat$lakenum]
+dat$gdd2 <- gdd2[dat$lakenum]
+
+
+# Get marginal (fixed effects only) and conditional (both fixed and random effects) r2 for logistic model
+# Nakagawa, S, Schielzeth, H. (2013). A general and simple method for obtaining R² from Generalized Linear Mixed-effects Models. Methods in Ecology and Evolution 4: 133–142
+m1 <- glmer(y ~ 1 + x + area + x:area + cond + x:cond + bass + x:bass + (1+x|lakenum), 
+            control=glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000)),
+            family = binomial, data=dat)
+summary(m1)
+# R2 (use MuMln package - )
+r2s <- r.squaredGLMM(m1)
+r2s
+
 # Initial values
 inits <- function (){
   list (mu.alpha = rnorm(1), mu.beta=rnorm(1), 
@@ -205,6 +223,31 @@ print(out1, dig = 3)
 
 # Find which parameters, if any, have Rhat > 1.1
 which(out1$BUGSoutput$summary[, c("Rhat")] > 1.1)
+
+
+betas <- out1$BUGSoutput$mean$BB[,2]
+betasCIsL <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.025)) 
+betasCIsU <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.975)) 
+sigBetas <- betasCIsL * betasCIsU > 0
+sum(sigBetas)
+
+betasCIsL80 <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.10)) 
+betasCIsU80 <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.90)) 
+sigBetas80 <- betasCIsL80 * betasCIsU80 > 0
+sum(sigBetas80)
+
+hist(betas)
+abline(v=0)
+
+# Number of negative and positve slopes
+length(which(betas > 0)) # 135
+length(which(betas < 0)) # 229
+
+which(betas > 0)
+which(betas > 0.95)
+which(betas < -1.4)
+betas[186]
+sigBetas[186]
 
 # covariate order: area, cond, bass, GDD
 mean(out1$BUGSoutput$sims.list$mu.alpha) 
