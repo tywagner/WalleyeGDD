@@ -156,7 +156,7 @@ hist(cond)
 range(dat$Conductance)
 mean(dat$Conductance)
 median(dat$Conductance)
-
+# sd(dat$Conductance)
 # Bass CPUE
 bassDat2 <- bassDat[bassDat$WBIC %in% dat$WBIC,]
 dim(bassDat2)
