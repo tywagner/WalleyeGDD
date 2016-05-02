@@ -60,6 +60,7 @@ polygon( x.polygon , y.polygon , col = sigColorP[i], border = NA )
 # Add posterior means
 lines(X3, meanProbGroup[,,174],lwd=1, col='black',lty=1)
 # title(main="WBIC 8",line=-1,adj=.2)
+text(-2.5, 0.95, '(A)')
 axis(side=1,labels = FALSE,tck=-0.03)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
@@ -76,6 +77,7 @@ polygon( x.polygon , y.polygon , col = sigColorP[i], border = NA )
 # Add posterior means
 lines(X3, meanProbGroup[,,186],lwd=1, col='black',lty=1)
 # title(main="WBIC 8",line=-1,adj=.2)
+text(-2.5, 0.95, '(B)')
 axis(side=1,labels = FALSE,tck=-0.03)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
@@ -91,6 +93,7 @@ polygon( x.polygon , y.polygon , col = sigColorP[i], border = NA )
 # Add posterior means
 lines(X3, meanProbGroup[,,27],lwd=1, col='black',lty=1)
 # title(main="WBIC 8",line=-1,adj=.2)
+text(-2.5, 0.95, '(C)')
 axis(side=1,labels = FALSE,tck=-0.03)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
@@ -109,11 +112,12 @@ lines(X3, meanProbGroup[,,2],lwd=1, col='black',lty=1)
 # title(main="WBIC 8",line=-1,adj=.2)
 # axis(side=1,labels = TRUE,tck=-0.03)
 # axis(side=1,cex.axis=axissize , mgp=c(1,0,0),tck= -0.01)
+text(-2.5, 0.95, '(D)')
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
 axis(side=1,mgp=c(1,0,0),tck= -0.01)
 box(lwd=1)
-mtext(side=1,expression(paste('Standardized ', log[e], '-transformed GDD')),line=1.0,outer=T, at=0.28)
+mtext(side=1,expression(paste('Standardized ', log[e], '-transformed DD')),line=1.0,outer=T, at=0.28)
 
 
 #Generate left panel of plot with all lakes in WI plotted by cluster ID
@@ -139,8 +143,19 @@ dev.off()
 # wbics[174]
 # which(betas < -1.4)
 # # 174, 186, 27, 2
-# dat[dat$WBIC==wbics[2],]
-# sigBetas80[80]
+dat[dat$WBIC==wbics[2],]
+sigBetas[174]
+sigBetas80[174]
+
+
+sigBetas[186]
+sigBetas80[186]
+
+sigBetas[27]
+sigBetas80[27]
+
+sigBetas[2]
+sigBetas80[2]
 # # save.image()
 
 
