@@ -96,6 +96,9 @@ saveRDS(meanProbGroup, file="meanProbGroup.rds")
 saveRDS(upperCI.Group, file="upperCI.Group.rds")
 saveRDS(lowerCI.Group, file="lowerCI.Group")
 
+
+
+
 ## Color for panel plots
 sigColorP <- rep('lightgray',num)
 sigColorP[sigBetas80==1] <- 'indianred1'
@@ -111,7 +114,7 @@ def.par <- par(no.readonly = TRUE)
 size.labels = 1
 size.text = 1
 axissize <- 0.8
-x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
+x.label = expression(paste('Standardized ', log[e], '-transformed DD'))
 # x.label = 'Standardized temperature'
 y.label = 'Probability of successful walleye recruitment'
 
@@ -183,7 +186,7 @@ def.par <- par(no.readonly = TRUE)
 size.labels = 1
 size.text = 1
 axissize <- 0.8
-x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
+x.label = expression(paste('Standardized ', log[e], '-transformed DD'))
 # x.label = 'Standardized temperature'
 y.label = 'Probability of successful walleye recruitment'
 
@@ -255,7 +258,7 @@ def.par <- par(no.readonly = TRUE)
 size.labels = 1
 size.text = 1
 axissize <- 0.8
-x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
+x.label = expression(paste('Standardized ', log[e], '-transformed DD'))
 # x.label = 'Standardized temperature'
 y.label = 'Probability of successful walleye recruitment'
 
@@ -344,7 +347,7 @@ def.par <- par(no.readonly = TRUE)
 size.labels = 1
 size.text = 1
 axissize <- 0.8
-x.label = expression(paste('Standardized ', log[e], '-transformed GDD'))
+x.label = expression(paste('Standardized ', log[e], '-transformed DD'))
 # x.label = 'Standardized temperature'
 y.label = 'Probability of successful walleye recruitment'
 
