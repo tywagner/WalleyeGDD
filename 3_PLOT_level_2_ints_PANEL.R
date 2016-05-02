@@ -139,7 +139,7 @@ size.text = 1
 x.label = expression(paste('Standardized ', log[e], '- lake area'))
 x.label2 = expression(paste('Standardized ', log[e], '- conductance'))
 x.label3 = expression(paste('Standardized ', log[e], '- bass CPE'))
-x.label4 = expression(paste('Standardized ', log[e], '- average GDD'))
+x.label4 = expression(paste('Standardized ', log[e], '- average DD'))
 y.label <- 'Logit-mean probability of recruitment success'
 
 # y.label <- expression(paste('Logit-mean probability of recruitment success [',alpha[j],']'))
