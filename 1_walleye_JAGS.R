@@ -60,7 +60,14 @@ length(unique(dat$lakenum))
 # renumber lakenum
 dat$lakenum <- as.numeric(as.factor(as.numeric(dat$lakenum)))
 
+samp.sizes <- as.numeric(table(dat$lakenum))
+mean(samp.sizes)
+median(samp.sizes)
+range(samp.sizes)
 
+mean(dat$GDD_wtr_5c)
+range(dat$GDD_wtr_5c)
+median(dat$GDD_wtr_5c)
 
 #################################################################
 ########## BUGS CODE ############################################
@@ -137,10 +144,18 @@ area <- as.numeric(by(dat$area.hectares, dat$lakenum, mean))
 area <- as.numeric(scale(log(area)))
 hist(area)
 
+range(dat$area.hectares)
+mean(dat$area.hectares)
+median(dat$area.hectares)
+
 # Conductivity
 cond <- as.numeric(by(dat$Conductance, dat$lakenum, mean)) 
 cond <- as.numeric(scale(log(cond)))
 hist(cond)
+
+range(dat$Conductance)
+mean(dat$Conductance)
+median(dat$Conductance)
 
 # Bass CPUE
 bassDat2 <- bassDat[bassDat$WBIC %in% dat$WBIC,]
@@ -148,6 +163,10 @@ dim(bassDat2)
 hist(bassDat2$mean.cpue.fall)
 bass <- as.numeric(scale(log(bassDat2$mean.cpue.fall+0.5))) # add a constant so we can log-transform
 hist(bass)
+
+range(bassDat2$mean.cpue.fall)
+mean(bassDat2$mean.cpue.fall)
+median(bassDat2$mean.cpue.fall)
 
 # Latitude
 lat <- as.numeric(by(dat$lat, dat$lakenum, mean)) 
@@ -158,6 +177,11 @@ gdd <- as.numeric(by(dat$GDD_wtr_5c, dat$lakenum, mean))
 gdd2 <- as.numeric(scale(log(gdd)))
 mat1 <- cbind(area, cond, bass, lat, gdd2) # gdd and lat correlated: r = -0.75
 cor(mat1)
+
+range(dat$GDD_wtr_5c)
+mean(dat$GDD_wtr_5c)
+median(dat$GDD_wtr_5c)
+
 
 # Number of lakes
 J <- length(unique(dat$lakenum))
