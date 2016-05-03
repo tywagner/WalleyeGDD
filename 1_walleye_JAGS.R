@@ -294,6 +294,7 @@ mean(out1$BUGSoutput$sims.list$gamma1b3) # Sig (-)
 mean(out1$BUGSoutput$sims.list$gamma1b4) # NS
 
 quantile(out1$BUGSoutput$sims.list$mu.beta, c(0.025, 0.975)) 
+quantile(out1$BUGSoutput$sims.list$mu.beta, c(0.1, 0.9))
 quantile(out1$BUGSoutput$sims.list$gamma1b, c(0.025, 0.975)) # NS
 quantile(out1$BUGSoutput$sims.list$gamma1b2, c(0.025, 0.975)) # Sig (-) - NS 
 quantile(out1$BUGSoutput$sims.list$gamma1b3, c(0.025, 0.975)) # Sig (-)
