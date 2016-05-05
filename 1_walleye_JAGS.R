@@ -144,18 +144,20 @@ area <- as.numeric(by(dat$area.hectares, dat$lakenum, mean))
 area <- as.numeric(scale(log(area)))
 hist(area)
 
-range(dat$area.hectares)
-mean(dat$area.hectares)
-median(dat$area.hectares)
+area2 <- as.numeric(by(dat$area.hectares, dat$lakenum, mean)) 
+range(area2)
+mean(area2)
+median(area2)
 
 # Conductivity
 cond <- as.numeric(by(dat$Conductance, dat$lakenum, mean)) 
 cond <- as.numeric(scale(log(cond)))
 hist(cond)
 
-range(dat$Conductance)
-mean(dat$Conductance)
-median(dat$Conductance)
+cond2 <- as.numeric(by(dat$Conductance, dat$lakenum, mean))
+range(cond2)
+mean(cond2)
+median(cond2)
 # sd(dat$Conductance)
 # Bass CPUE
 bassDat2 <- bassDat[bassDat$WBIC %in% dat$WBIC,]
@@ -178,9 +180,10 @@ gdd2 <- as.numeric(scale(log(gdd)))
 mat1 <- cbind(area, cond, bass, lat, gdd2) # gdd and lat correlated: r = -0.75
 cor(mat1)
 
-range(dat$GDD_wtr_5c)
-mean(dat$GDD_wtr_5c)
-median(dat$GDD_wtr_5c)
+gdd.raw <- as.numeric(by(dat$GDD_wtr_5c, dat$lakenum, mean)) 
+range(gdd.raw)
+mean(gdd.raw)
+median(gdd.raw)
 
 
 # Number of lakes
