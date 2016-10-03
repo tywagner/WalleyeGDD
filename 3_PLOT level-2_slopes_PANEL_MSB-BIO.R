@@ -125,7 +125,7 @@ for(i in 1:length(mean.beta)) {
 
 
 png(
-  "WE_Slopes_panel_MSB_BIO.jpg",
+  "WE_Slopes_panel_MSB_BIO.png",
   width     = 2,
   height    = 2,
   units     = "in",
