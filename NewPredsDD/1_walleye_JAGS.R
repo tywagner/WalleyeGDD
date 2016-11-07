@@ -255,7 +255,7 @@ if( slope.means[i] > 0){
  }	
 } # close loop
 
-probs1
+# probs1
 
 betas <- out1$BUGSoutput$mean$BB[,2]
 betasCIsL <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.025)) 
