@@ -59,9 +59,9 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 
 # Lakes to plot (order in dataframe, not WBIC)
 lakePlot1 <- 185
-lakePlot2 <- 167
+lakePlot2 <- 135
 lakePlot3 <- 52
-lakePlot4 <- 6
+lakePlot4 <- 86
 
 res <- 6
 name_figure <- "WI_map.png"
@@ -198,20 +198,21 @@ dev.off()
 #########################################
 # Mess around to find lakes to plot etc.
 which(betas > 0.85)
+which(betas > 0.85)
 # 173, 185
 which(betas < -0.9)
 # 52 53 58 59
-dat[dat$WBIC==wbics[173],]
+dat[dat$WBIC==wbics[2275100],]
 
 coords[coords$WBIC==wbics[lakePlot1],]$lon
 coords[coords$WBIC==wbics[185],]
 coords[coords$WBIC==wbics[52],]
 coords[coords$WBIC==wbics[58],]
 
-probsWBIC[probsWBIC$wbics==wbics[351],]
+# probsWBIC[probsWBIC$wbics==wbics[2275100],]
 
-probsWBIC[probsWBIC$wbics==wbics[59],]
+probsWBIC[probsWBIC$wbics==wbics[334],]
 
 probsWBIC[probsWBIC$wbics==59300,]
 
-which(probsWBIC$wbics==59300)
+which(probsWBIC$wbics==2392000)
