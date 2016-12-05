@@ -8,7 +8,7 @@ library(PerformanceAnalytics)
 library(MuMIn)
 
 # Read in data
-dat <- read.csv('walleye_recruitment_new_predictors.csv')
+dat <- read.csv('walleye_recruitment_new_predictors_correct_mean_GDD.csv')
 dim(dat)
 head(dat)
 
@@ -255,25 +255,64 @@ if( slope.means[i] > 0){
  }	
 } # close loop
 
+
+probsPos <- numeric()
+probsNeg <- numeric()
+for(i in 1:length(slope.means)){
+  if( slope.means[i] > 0){
+    probsPos[i] <- mean(out1$BUGSoutput$sims.list$BB[,i,2] > 0)
+  } else {
+    probsNeg[i] <- mean(out1$BUGSoutput$sims.list$BB[,i,2] < 0)
+  }	
+} # close loop
+
+length(probsPos)
+length(probsNeg)
+
+
+
+probsPos <- probsPos[!is.na(probsPos)]
+length(probsPos)
+range(probsPos)
+mean(probsPos)
+median(probsPos)
+sum(probsPos > 0.7)
+
+
+probsNegInd <- probsNeg
+# Indicator for which lakes have a negative effect of DD
+probsNegInd2 <- as.numeric(!is.na(probsNegInd))
+length(probsNegInd2)
+sum(probsNegInd2)
+
+probsNeg <- probsNeg[!is.na(probsNeg)]
+length(probsNeg)
+range(probsNeg)
+mean(probsNeg)
+median(probsNeg)
+sum(probsNeg > 0.7)
+
+
+
 # probs1
 
 betas <- out1$BUGSoutput$mean$BB[,2]
-betasCIsL <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.025)) 
-betasCIsU <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.975)) 
+betasCIsL <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.05)) 
+betasCIsU <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.95)) 
 sigBetas <- betasCIsL * betasCIsU > 0
-sum(sigBetas) # was 25, now 4
+sum(sigBetas) # was 25, now 6
 
 betasCIsL80 <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.10)) 
 betasCIsU80 <- apply(out1$BUGSoutput$sims.list$BB[,,2],2,quantile, c(0.90)) 
 sigBetas80 <- betasCIsL80 * betasCIsU80 > 0
-sum(sigBetas80) # was 93, now 49
+sum(sigBetas80) # was 93, now 55
 
 hist(betas)
 abline(v=0)
 
 # Number of negative and positve slopes
-length(which(betas > 0)) # 135; 172
-length(which(betas < 0)) # 229; 187
+length(which(betas > 0)) # 135; 161
+length(which(betas < 0)) # 229; 198
 
 which(betas > 0)
 which(betas > 0.95)
@@ -340,3 +379,9 @@ write.csv(summary,'final_model_summary.csv',row.names = T)
 wbics <- unique(dat$WBIC)
 write.csv(wbics,'final_wbics.csv',row.names = F)
 
+ProbsForG <- data.frame(wbics, probs1, probsNegInd2)
+colnames(ProbsForG)<- c('WBIC','probability','Negative_Indicator')
+dim(ProbsForG)
+head(ProbsForG)
+
+write.csv(ProbsForG, "ProbsForG.csv", row.names=F)
