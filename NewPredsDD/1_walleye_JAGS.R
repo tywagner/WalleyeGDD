@@ -384,4 +384,9 @@ colnames(ProbsForG)<- c('WBIC','probability','Negative_Indicator')
 dim(ProbsForG)
 head(ProbsForG)
 
-write.csv(ProbsForG, "ProbsForG.csv", row.names=F)
+# write.csv(ProbsForG, "ProbsForG.csv", row.names=F)
+
+head(ProbsForG)
+t1 <- ProbsForG
+
+t1$ProbDecline <- ifelse(t1$Negative_Indicator==0, (1-t1$probability), t1$probability)
