@@ -121,6 +121,19 @@ for(i in 1:length(mean.beta)) {
 ########
 
 
+# Color of points to correspond to probability
+bluefunc <- colorRampPalette(c("red", "blue"))
+# plot( area, mean.beta, 
+#       col=bluefunc(20)[as.numeric(cut(probs1,breaks = 20))] , pch=16)
+PointCOlors <- bluefunc(20)[as.numeric(cut(probs1,breaks = 20))]
+
+
+PointsLegend <- round(seq(min(probs1),max(probs1),length=5),2)
+PointLegend <- bluefunc(20)[as.numeric(cut(PointsLegend,breaks = 20))]
+
+# plot( area, mean.beta,
+#       col="#1A00E4" , pch=16)
+
 ####### FIGURE WITH CRI's
 
 res <- 6
@@ -132,7 +145,7 @@ nf <- layout(matrix(c(1:4),nrow=2,ncol=2,byrow=TRUE),  TRUE)
 layout.show(nf)
 par(mar=c(0.2,0.1,0.1,0.1),oma=c(1.3,2.5,0,1),mai=c(0.30,0.1,0.05,0) )
 
-
+vertLines = 0.8
 size.labels = 1
 size.text = 1
 
@@ -157,10 +170,10 @@ x.polygon <- c( fake1[i.for] , fake1[i.back] )
 y.polygon <- c( lower.CIA[i.for] , upper.CIA[i.back] )
 polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
 
-points(area, mean.beta,pch=16,cex=0.8)
+points(area, mean.beta,pch=16,cex=0.8, col=PointCOlors)
 
 segments(x0=area, x1=area,
-         y0=l.alpha, y1=u.alpha, col=rgb(0,0,0,0.5),lwd=1)
+         y0=l.alpha, y1=u.alpha, col=rgb(0,0,0,0.5),lwd=vertLines)
 
 
 lines(fake1,fit1, lwd = 3, col="black", lty = 1)
@@ -184,10 +197,10 @@ x.polygon <- c( fake1a[i.for] , fake1a[i.back] )
 y.polygon <- c( lower.CIAa[i.for] , upper.CIAa[i.back] )
 polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
 
-points(cond, mean.beta,pch=16,cex=0.8)
+points(cond, mean.beta,pch=16,cex=0.8, col=PointCOlors)
 
 segments(x0=cond, x1=cond,
-         y0=l.alphaa, y1=u.alphaa, col=rgb(0,0,0,0.5),lwd=1)
+         y0=l.alphaa, y1=u.alphaa, col=rgb(0,0,0,0.5),lwd=vertLines)
 
 
 lines(fake1a,fit1a, lwd = 3, col="black", lty = 1)
@@ -195,6 +208,9 @@ lines(fake1a,fit1a, lwd = 3, col="black", lty = 1)
 mtext(x.label2, line = 1.12, side = 1, cex = size.text)
 #mtext(y.label, line = 1.1, side = 2, cex = size.text)
 text(-2.4,5.8,'(B)')
+
+legend("topright",title="Probability",legend=round(seq(min(probs1),max(probs1),length=5),2),
+       col=PointLegend,pch=16, cex=0.8)
 
 box()
 
@@ -212,10 +228,10 @@ x.polygon <- c( fake1ab[i.for] , fake1ab[i.back] )
 y.polygon <- c( lower.CIAab[i.for] , upper.CIAab[i.back] )
 polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
 
-points(bass, mean.beta,pch=16,cex=0.8)
+points(bass, mean.beta,pch=16,cex=0.8, col=PointCOlors)
 
 segments(x0=bass, x1=bass,
-         y0=l.alphaab, y1=u.alphaab, col=rgb(0,0,0,0.5),lwd=1)
+         y0=l.alphaab, y1=u.alphaab, col=rgb(0,0,0,0.5),lwd=vertLines)
 
 
 lines(fake1ab,fit1ab, lwd = 3, col="black", lty = 1)
@@ -239,10 +255,10 @@ x.polygon <- c( fake1abc[i.for] , fake1abc[i.back] )
 y.polygon <- c( lower.CIAabc[i.for] , upper.CIAabc[i.back] )
 polygon( x.polygon , y.polygon , col = "lightgray" , border = NA )
 
-points(gdd2, mean.beta,pch=16,cex=0.8)
+points(gdd2, mean.beta,pch=16,cex=0.8, col=PointCOlors)
 
 segments(x0=gdd2, x1=gdd2,
-         y0=l.alphaabc, y1=u.alphaabc, col=rgb(0,0,0,0.5),lwd=1)
+         y0=l.alphaabc, y1=u.alphaabc, col=rgb(0,0,0,0.5),lwd=vertLines)
 
 
 lines(fake1abc,fit1abc, lwd = 3, col="black", lty = 1)
