@@ -15,6 +15,9 @@ head(dat)
 # Read in bass data
 bassDat <- read.csv('fall_lmb8_cpue_lakemean.csv')
 
+dim(bassDat)
+length(unique(bassDat$WBIC))
+
 dat <- dat[dat$WBIC %in% bassDat$WBIC,]
 dim(dat)
 
@@ -376,17 +379,26 @@ corr.ab
 summary <- out1$BUGSoutput$summary
 write.csv(summary,'final_model_summary.csv',row.names = T)
 
-wbics <- unique(dat$WBIC)
-write.csv(wbics,'final_wbics.csv',row.names = F)
+
+# Sort dat by lakenum (or WBIC)
+dat2 <- dat[order(dat$lakenum),]
+head(dat2)
+
+wbics <- unique(dat2$WBIC)
+write.csv(wbics,'final_wbics2.csv',row.names = F)
 
 ProbsForG <- data.frame(wbics, probs1, probsNegInd2)
 colnames(ProbsForG)<- c('WBIC','probability','Negative_Indicator')
 dim(ProbsForG)
 head(ProbsForG)
 
-# write.csv(ProbsForG, "ProbsForG.csv", row.names=F)
+write.csv(ProbsForG, "ProbsForG.csv", row.names=F)
 
 head(ProbsForG)
 t1 <- ProbsForG
 
 t1$ProbDecline <- ifelse(t1$Negative_Indicator==0, (1-t1$probability), t1$probability)
+
+
+
+
