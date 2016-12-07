@@ -60,8 +60,9 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 # Lakes to plot (order in dataframe, not WBIC)
 lakePlot1 <- 185
 lakePlot2 <- 135
-lakePlot3 <- 52
-lakePlot4 <- 86
+lakePlot3 <- 282#52
+
+# lakePlot4 <- 86
 
 
 ######### Color of points to correspond to probability
@@ -94,7 +95,7 @@ par(mar=c(.5,2,0,0))
 
 
 
-##### 3 trend figures...pull out and plot the raw data for each one 
+##### 
 plot(x,y,ylim=c(Ymin, Ymax), xlim=c(min(x), max(x)), axes=F, ylab='', xlab='', type='n')
 i.for <- order(X3)
 i.back <- order(X3, decreasing = TRUE )
@@ -109,7 +110,13 @@ axis(side=1,labels = FALSE,tck=-0.03)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
 
-text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot1],]$probs1,2))
+# Prob different than zero
+# text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot1],]$probs1,2))
+
+# Prob negative
+text(-2.5, 0.88, round(t1$ProbDecline[lakePlot1],2))
+
+
 
 box(lwd=1)
 
@@ -129,7 +136,10 @@ axis(side=1,labels = FALSE,tck=-0.03)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
 
-text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot2],]$probs1,2))
+# text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot2],]$probs1,2))
+
+# Prob negative
+text(-2.5, 0.88, round(t1$ProbDecline[lakePlot2],2))
 
 
 box(lwd=1)
@@ -150,7 +160,10 @@ axis(side=1,cex.axis=1 , mgp=c(1,0,0),tck= -0.01)
 axis(side=2,labels = FALSE,tck=-0.03)
 axis(side=2,line = -.75,lwd=0)
 
-text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot3],]$probs1,2))
+# text(-2.5, 0.88, round(probsWBIC[probsWBIC$wbics==wbics[lakePlot3],]$probs1,2))
+
+# Prob negative
+text(-2.5, 0.88, round(t1$ProbDecline[lakePlot3],2))
 
 
 box(lwd=1)
@@ -210,7 +223,7 @@ arrows(-95,41.5,coords[coords$WBIC==wbics[lakePlot3],]$lon, coords[coords$WBIC==
 par(mar=c(0, 0, 0, 0))
 plot(x,y,ylim=c(Ymin, Ymax), xlim=c(min(x), max(x)), axes=F, ylab='', xlab='', type='n')
 # Add plot for legend
-legend("center",title="Probability of a\n negative effect of DD",legend=round(seq(min(probs1),max(probs1),length=5),2),
+legend("center",title="Probability of a\n negative effect of DD",legend=round(seq(min(t1$ProbDecline),max(t1$ProbDecline),length=5),2),
        col=PointLegend,pch=16, cex=1.5, bty = "n")
 
 par(def.par)
@@ -235,6 +248,6 @@ dev.off()
 # 
 # probsWBIC[probsWBIC$wbics==wbics[334],]
 # 
-# probsWBIC[probsWBIC$wbics==59300,]
-# 
-# which(probsWBIC$wbics==2392000)
+probsWBIC[probsWBIC$wbics==808700,]
+
+which(probsWBIC$wbics==808700)
