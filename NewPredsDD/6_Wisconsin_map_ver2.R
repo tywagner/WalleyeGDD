@@ -57,10 +57,11 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 }
 
 
+# Look at panel plots to choose lake number
 # Lakes to plot (order in dataframe, not WBIC)
-lakePlot1 <- 185
-lakePlot2 <- 135
-lakePlot3 <- 282#52
+lakePlot1 <- 167 #357 # #185
+lakePlot2 <- 96#24
+lakePlot3 <- 1#52
 
 # lakePlot4 <- 86
 
@@ -248,6 +249,6 @@ dev.off()
 # 
 # probsWBIC[probsWBIC$wbics==wbics[334],]
 # 
-probsWBIC[probsWBIC$wbics==808700,]
+probsWBIC[probsWBIC$wbics==2165000,]
 
-which(probsWBIC$wbics==808700)
+which(probsWBIC$wbics==2914800)
