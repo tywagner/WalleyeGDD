@@ -7,10 +7,12 @@ library(lattice)
 library(PerformanceAnalytics)
 library(MuMIn)
 
+# Test change for testing GIT install
 # Read in data
 dat <- read.csv('walleye_recruitment_new_predictors_correct_mean_GDD.csv')
 dim(dat)
 head(dat)
+summary(dat)
 
 # Read in bass data
 bassDat <- read.csv('fall_lmb8_cpue_lakemean.csv')
@@ -192,13 +194,14 @@ dat$gdd2 <- gdd2[dat$lakenum]
 
 # Get marginal (fixed effects only) and conditional (both fixed and random effects) r2 for logistic model
 # Nakagawa, S, Schielzeth, H. (2013). A general and simple method for obtaining R² from Generalized Linear Mixed-effects Models. Methods in Ecology and Evolution 4: 133–142
-m1 <- glmer(y ~ 1 + x + area + x:area + cond + x:cond + bass + x:bass + (1+x|lakenum), 
+m1 <- glmer(y ~ 1 + x + area + x:area + cond + x:cond + bass + x:bass  + gdd2 + x:gdd2 + (1+x|lakenum), 
             control=glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000)),
             family = binomial, data=dat)
 summary(m1)
 # R2 (use MuMln package - )
 r2s <- r.squaredGLMM(m1)
 r2s
+
 
 # m2 <- glmer(y ~ 1 + x + area + x:area + cond + x:cond + bass + x:bass + gdd2 + x:gdd2 + (1+x|lakenum),
 #             control=glmerControl(optimizer="bobyqa", optCtrl = list(maxfun = 100000)),
@@ -246,6 +249,9 @@ print(out1, dig = 3)
 
 # Find which parameters, if any, have Rhat > 1.1
 which(out1$BUGSoutput$summary[, c("Rhat")] > 1.1)
+
+
+# saveRDS(out1, file="jagsOutput.rds")
 
 ### Calculate the probability that the effect is the direction of the estimated posterior mean
 slope.means <- out1$BUGSoutput$mean$BB[,2]
@@ -400,5 +406,4 @@ t1 <- ProbsForG
 t1$ProbDecline <- ifelse(t1$Negative_Indicator==0, (1-t1$probability), t1$probability)
 
 
-
-
+# saveRDS(dat, file="dat.rds")
